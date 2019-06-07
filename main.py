@@ -7,8 +7,15 @@
 import sys
 from urllib import urlencode
 from urlparse import parse_qsl
+import zlib
+import json
+import urlparse
+import xbmc
 import xbmcgui
 import xbmcplugin
+
+import urllib2
+import re
 
 # Get the plugin url in plugin:// notation.
 _url = sys.argv[0]
@@ -209,6 +216,37 @@ def play_video(path):
     xbmcplugin.setResolvedUrl(_handle, True, listitem=play_item)
 
 
+# -----------  Create some functions for fetching videos ---------------
+# https://github.com/learningit/Kodi-plugins-source/blob/master/script.module.t1mlib/lib/t1mlib.py
+UTF8 = 'utf-8'
+USERAGENT = """Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 \
+            (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36"""
+httpHeaders = {'User-Agent': USERAGENT,
+               'Accept': "application/json, text/javascript, text/html,*/*",
+               'Accept-Encoding': 'gzip,deflate,sdch',
+               'Accept-Language': 'en-US,en;q=0.8'
+               }
+
+#Returns web pages
+def getRequest(url, udata=None, headers=httpHeaders):
+    req = urllib2.Request(url.encode(UTF8), udata, headers)
+    try:
+        response = urllib2.urlopen(req)
+        page = response.read()
+        if response.info().getheader('Content-Encoding') == 'gzip':
+            page = zlib.decompress(page, zlib.MAX_WBITS + 16)
+        response.close()
+    except Exception:
+        page = ""
+        xbmc.log(msg='REQUEST ERROR', level=xbmc.LOGDEBUG)
+    return(page) 
+    
+#Gets streaming URL from Hunan TV API page
+def getStreamURL(url):
+    html = getRequest(url)
+    streamURL = re.compile('url\"\:\"(.+?)\"\}').search(html)
+    return streamURL 
+
 def router(paramstring):
     """
     Router function that calls other functions
@@ -227,7 +265,8 @@ def router(paramstring):
             list_videos(params['category'])
         elif params['action'] == 'play':
             # Play a video from a provided URL.
-            play_video(params['video'])
+            streamURL = getStreamURL(params['video'])
+            play_video(streamURL)
         else:
             # If the provided paramstring does not contain a supported action
             # we raise an exception. This helps to catch coding errors,
