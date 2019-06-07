@@ -26,45 +26,11 @@ _handle = int(sys.argv[1])
 # Here we use a fixed set of properties simply for demonstrating purposes
 # In a "real life" plugin you will need to get info and links to video files/streams
 # from some web-site or online service.
-VIDEOS = {'Animals': [{'name': 'Crab',
-                       'thumb': 'http://www.vidsplay.com/wp-content/uploads/2017/04/crab-screenshot.jpg',
-                       'video': 'http://www.vidsplay.com/wp-content/uploads/2017/04/crab.mp4',
-                       'genre': 'Animals'},
-                      {'name': 'Alligator',
-                       'thumb': 'http://www.vidsplay.com/wp-content/uploads/2017/04/alligator-screenshot.jpg',
-                       'video': 'http://www.vidsplay.com/wp-content/uploads/2017/04/alligator.mp4',
-                       'genre': 'Animals'},
-                      {'name': 'Turtle',
-                       'thumb': 'http://www.vidsplay.com/wp-content/uploads/2017/04/turtle-screenshot.jpg',
-                       'video': 'http://www.vidsplay.com/wp-content/uploads/2017/04/turtle.mp4',
-                       'genre': 'Animals'}
-                      ],
-            'Cars': [{'name': 'Postal Truck',
-                      'thumb': 'http://www.vidsplay.com/wp-content/uploads/2017/05/us_postal-screenshot.jpg',
-                      'video': 'http://www.vidsplay.com/wp-content/uploads/2017/05/us_postal.mp4',
-                      'genre': 'Cars'},
-                     {'name': 'Traffic',
-                      'thumb': 'http://www.vidsplay.com/wp-content/uploads/2017/05/traffic1-screenshot.jpg',
-                      'video': 'http://www.vidsplay.com/wp-content/uploads/2017/05/traffic1.mp4',
-                      'genre': 'Cars'},
-                     {'name': 'Traffic Arrows',
-                      'thumb': 'http://www.vidsplay.com/wp-content/uploads/2017/05/traffic_arrows-screenshot.jpg',
-                      'video': 'http://www.vidsplay.com/wp-content/uploads/2017/05/traffic_arrows.mp4',
-                      'genre': 'Cars'}
-                     ],
-            'Food': [{'name': 'Chicken',
-                      'thumb': 'http://www.vidsplay.com/wp-content/uploads/2017/05/bbq_chicken-screenshot.jpg',
-                      'video': 'http://www.vidsplay.com/wp-content/uploads/2017/05/bbqchicken.mp4',
-                      'genre': 'Food'},
-                     {'name': 'Hamburger',
-                      'thumb': 'http://www.vidsplay.com/wp-content/uploads/2017/05/hamburger-screenshot.jpg',
-                      'video': 'http://www.vidsplay.com/wp-content/uploads/2017/05/hamburger.mp4',
-                      'genre': 'Food'},
-                     {'name': 'Pizza',
-                      'thumb': 'http://www.vidsplay.com/wp-content/uploads/2017/05/pizza-screenshot.jpg',
-                      'video': 'http://www.vidsplay.com/wp-content/uploads/2017/05/pizza.mp4',
-                      'genre': 'Food'}
-                     ]}
+VIDEOS = {'Hunan TV': [{'name': 'International',
+                       'thumb': '',
+                       'video': 'https://mpplive.api.mgtv.com/v1/epg/turnplay/getLivePlayUrlMPP?version=PCweb_1.0&platform=4&buss_id=2000001&channel_id=229&definition=std&_support=10000000',
+                       'genre': 'Hunan TV'},
+                      ]}
 
 
 def get_url(**kwargs):
